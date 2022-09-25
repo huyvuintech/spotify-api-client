@@ -140,5 +140,14 @@ class SpotifyAPI(object):
     def get_artist(self, _id):
         return self.get_resource(_id,resource_type = 'artists')
 
+    def get_saved_tracks(self):
+        endpoint = f"https://api.spotify.com/v1/me/tracks"
+        headers = self.get_access_header()
+        params = self.get_user_params()
+        r=requests.get(endpoint, params= params, headers = headers)
+        if r.status_code not in range(200,299):
+            return {}
+        return r.json()
+
 
 
